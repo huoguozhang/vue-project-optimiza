@@ -1,13 +1,22 @@
 <template>
   <div id="app">
+    <myButton>你好啊</myButton>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/news">新闻</router-link> |
+      <router-link to="/product">产品</router-link>
     </div>
     <router-view/>
   </div>
 </template>
-
+<script>
+export default {
+  data () {
+    return {
+      currentStep: 0
+    }
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
