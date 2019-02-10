@@ -11,7 +11,7 @@ routerContext.keys().forEach(route => {
   routes.push(...(routerModule.default || routerModule))
 })
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL, // '可以加前缀'
   routes
 })

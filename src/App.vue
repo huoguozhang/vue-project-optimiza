@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <myButton>你好啊</myButton>
+    <el-button type="danger">危险</el-button>
     <div id="nav">
       <router-link to="/news">新闻</router-link> |
       <router-link to="/product">产品</router-link>

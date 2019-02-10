@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '../router'
 import { Message } from 'iview'
+let loading = null
 const service = axios.create({
   // 设置超时时间
   timeout: 60000,
@@ -14,6 +15,9 @@ const service = axios.create({
 // 即设置post的请求头为application/x-www-form-urlencoded;charset=UTF-8
 service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8''
 service.interceptors.request.use(config => {
+  loading = Loading.service({
+    text: '正在加载中...'
+  })
   const token = localStorage.getItem('token')
   if (token) {
     config.headers['Authorization'] = token
@@ -31,6 +35,10 @@ service.interceptors.request.use(config => {
  * 用于处理需要在请求返回后的操作
  */
 service.interceptors.response.use(response => {
+  // 结束loading
+  if (loading) {
+    loading.close()
+  }
   const responseCode = response.status
   // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
   // 否则的话抛出错误
@@ -43,6 +51,19 @@ service.interceptors.response.use(response => {
   // 服务器返回不是 2 开头的情况，会进入这个回调
   // 可以根据后端返回的状态码进行不同的操作
   const responseCode = error.response.status
+  // 断网 或者 请求超时 状态
+  if (!error.response) {
+      // 请求超时状态
+    if (error.message.includes('timeout')) {
+      console.log('超时了')
+      Message.error('请求超时，请检查网络是否连接正常')
+    } else {
+      // 可以展示断网组件
+      console.log('断网了')
+      Message.error('请求失败，请检查网络是否已连接')
+    }
+    return
+  }
   switch (responseCode) {
     // 401：未登录
     case 401:

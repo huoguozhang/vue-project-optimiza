@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "test": "vue-cli-service build --mode test",
+    "build": "vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "new:comp": "node ./scripts/generateComponent",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "element-ui": "^2.5.4",
     "iview": "^3.2.2",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",
@@ -27,6 +29,7 @@
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
     "chalk": "^2.4.2",
+    "compression-webpack-plugin": "^2.0.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
